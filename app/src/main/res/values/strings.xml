@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">NUMAD22Sp_YueSun</string>
+    <string name="about_me_string">About Me</string>
+    <string name="name">Yue Sun</string>
+    <string name="email">sun.yue1@northeastern.edu</string>
 </resources>
