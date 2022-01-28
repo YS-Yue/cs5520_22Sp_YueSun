@@ -19,8 +19,7 @@ public class MainActivity extends AppCompatActivity {
     public void showAboutMe(View view) {
         Resources res = getResources();
         String text = res.getString(R.string.name) + "\n" + res.getString(R.string.email);
-        Toast toast = Toast.makeText(getApplicationContext(),text, Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.CENTER,0, 0);
+        Toast toast = Toast.makeText(getApplicationContext(),text, Toast.LENGTH_SHORT);
         toast.show();
     }
 }

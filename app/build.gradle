@@ -3,6 +3,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        config {
+            storeFile file('/Users/yuesun/YSkeystore/YSKeystore')
+            keyAlias 'cs5520key0'
+            storePassword '1123581321'
+            keyPassword '1123581321'
+        }
+    }
     compileSdkVersion 32
     buildToolsVersion "32.0.0"
 
@@ -20,6 +28,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
     compileOptions {
