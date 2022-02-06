@@ -1,6 +1,5 @@
 package com.example.numad22sp_yuesun;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -16,15 +15,9 @@ public class ClickyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clicky);
 
-        if (savedInstanceState != null) {
-            buttonPressed = savedInstanceState.getString("buttonPressed", "-");
-        } else {
-            buttonPressed = "-";
-        }
-
         textView = findViewById(R.id.pressedButtonText);
-        String buttonPressedText = "Pressed: " + buttonPressed;
-        textView.setText(buttonPressedText);
+        String defaultText = "Pressed: -";
+        textView.setText(defaultText);
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -53,11 +46,5 @@ public class ClickyActivity extends AppCompatActivity {
         }
         String buttonPressedText = "Pressed: " + buttonPressed;
         textView.setText(buttonPressedText);
-    }
-
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString("buttonPressed", buttonPressed);
     }
 }
