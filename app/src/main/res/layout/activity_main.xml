@@ -11,33 +11,42 @@
         android:id="@+id/helloWorld"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="top"
         android:text="Hello World!"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textColor="@color/white"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        android:textColor="@color/dark_purple"
         android:textSize="48sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/clickyButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.234" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="123dp"
-        android:layout_marginBottom="184dp"
+        android:id="@+id/clickyButton"
+        android:layout_width="140dp"
+        android:layout_height="70dp"
+        android:width="160dp"
         android:backgroundTint="@color/dark_orange"
-        android:onClick="showAboutMe"
+        android:onClick="onClick"
+        android:text="@string/clicky_clicky"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/aboutMeButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/helloWorld" />
+
+    <Button
+        android:id="@+id/aboutMeButton"
+        android:layout_width="140dp"
+        android:layout_height="70dp"
+        android:backgroundTint="@color/dark_orange"
+        android:onClick="onClick"
         android:text="@string/about_me_string"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/helloWorld"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/clickyButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
