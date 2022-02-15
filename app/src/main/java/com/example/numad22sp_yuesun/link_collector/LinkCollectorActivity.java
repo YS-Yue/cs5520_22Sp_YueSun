@@ -55,14 +55,18 @@ public class LinkCollectorActivity extends AppCompatActivity {
             @Override
             public void onSwiped(RecyclerView.@NotNull ViewHolder viewHolder, int direction) {
                 View parentLayout = findViewById(android.R.id.content);
-                Snackbar snack = Snackbar.make(parentLayout, R.string.snackbar_msg_deleted, Snackbar.LENGTH_LONG).setAction(R.string.snackbar_action, null);
-                View snackView = snack.getView();
-                TextView mTextView = snackView.findViewById(com.google.android.material.R.id.snackbar_text);
-                mTextView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                snack.show();
                 int position = viewHolder.getLayoutPosition();
+                LinkItem linkToRemove = linkItemList.get(position);
+
                 linkItemList.remove(position);
                 viewAdapter.notifyItemRemoved(position);
+
+                Snackbar.make(parentLayout, R.string.snackbar_msg_deleted, Snackbar.LENGTH_LONG)
+                        .setAction(R.string.snackbar_action_undo, v -> {
+                            linkItemList.add(position, linkToRemove);
+                            viewAdapter.notifyDataSetChanged();
+                        })
+                        .show();
             }
         });
 
