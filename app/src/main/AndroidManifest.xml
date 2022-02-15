@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_ys_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NUMAD22Sp_YueSun">
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -27,6 +28,13 @@
         </activity>
         <activity
             android:name=".AboutMeActivity"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".link_collector.LinkCollectorActivity"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

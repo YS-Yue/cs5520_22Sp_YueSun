@@ -4,4 +4,8 @@
     <string name="name">Yue Sun</string>
     <string name="email">sun.yue1@northeastern.edu</string>
     <string name="clicky_clicky">Clicky Clicky</string>
+    <string name="link_collector">Link Collector</string>
+    <string name="link_name">link_name</string>
+    <string name="link_url">link_url</string>
+    <string name="add_link">Add Link</string>
 </resources>

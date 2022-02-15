@@ -10,6 +10,8 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.numad22sp_yuesun.link_collector.LinkCollectorActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -26,8 +28,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intentAboutMe);
                 break;
             case R.id.clickyButton:
-                Intent intent_clicky = new Intent(this, ClickyActivity.class);
-                startActivity(intent_clicky);
+                Intent intentClicky = new Intent(this, ClickyActivity.class);
+                startActivity(intentClicky);
+                break;
+            case R.id.linkCollectorButton:
+                Intent intentLinkCollector = new Intent(this, LinkCollectorActivity.class);
+                startActivity(intentLinkCollector);
                 break;
         }
     }
