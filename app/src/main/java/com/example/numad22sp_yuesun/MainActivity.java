@@ -1,14 +1,12 @@
 package com.example.numad22sp_yuesun;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.Toast;
+
+import com.example.numad22sp_yuesun.link_collector.LinkCollectorActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,21 +16,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void showAboutMe(View view) {
-        Resources res = getResources();
-        String text = res.getString(R.string.name) + "\n" + res.getString(R.string.email);
-        Toast toast = Toast.makeText(getApplicationContext(),text, Toast.LENGTH_SHORT);
-        toast.show();
-    }
-
+    @SuppressLint("NonConstantResourceId")
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.aboutMeButton:
-                showAboutMe(view);
+                Intent intentAboutMe = new Intent(this, AboutMeActivity.class);
+                startActivity(intentAboutMe);
                 break;
             case R.id.clickyButton:
-                Intent intent_clicky = new Intent(this, ClickyActivity.class);
-                startActivity(intent_clicky);
+                Intent intentClicky = new Intent(this, ClickyActivity.class);
+                startActivity(intentClicky);
+                break;
+            case R.id.linkCollectorButton:
+                Intent intentLinkCollector = new Intent(this, LinkCollectorActivity.class);
+                startActivity(intentLinkCollector);
                 break;
         }
     }

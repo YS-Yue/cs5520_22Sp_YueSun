@@ -31,10 +31,24 @@
         android:onClick="onClick"
         android:text="@string/clicky_clicky"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/aboutMeButton"
+        app:layout_constraintBottom_toTopOf="@+id/linkCollectorButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/helloWorld" />
+
+    <Button
+        android:id="@+id/linkCollectorButton"
+        android:layout_width="140dp"
+        android:layout_height="70dp"
+        android:width="160dp"
+        android:backgroundTint="@color/dark_orange"
+        android:onClick="onClick"
+        android:text="@string/link_collector"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/aboutMeButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clickyButton" />
 
     <Button
         android:id="@+id/aboutMeButton"
@@ -47,6 +61,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clickyButton" />
+        app:layout_constraintTop_toBottomOf="@+id/linkCollectorButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
