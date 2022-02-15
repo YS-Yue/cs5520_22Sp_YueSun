@@ -8,4 +8,13 @@
     <string name="link_name">link_name</string>
     <string name="link_url">link_url</string>
     <string name="add_link">Add Link</string>
+    <string name="dialog_title">Add Link</string>
+    <string name="bottom_cancel">cancel</string>
+    <string name="button_save">save</string>
+    <string name="snackbar_msg_missing_input">Failed to save a link. Missing input - name and URL are required.</string>
+    <string name="snackbar_action">Action</string>
+    <string name="snackbar_msg_invalid_url">Failed to save the link: Invalid URL.</string>
+    <string name="snackbar_msg_success">"Link added. "</string>
+    <string name="snackbar_action_undo">Undo</string>
+    <string name="snackbar_msg_deleted">Deleted Link.</string>
 </resources>
