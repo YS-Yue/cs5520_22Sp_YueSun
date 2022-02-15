@@ -18,17 +18,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void showAboutMe(View view) {
-        Resources res = getResources();
-        String text = res.getString(R.string.name) + "\n" + res.getString(R.string.email);
-        Toast toast = Toast.makeText(getApplicationContext(),text, Toast.LENGTH_SHORT);
-        toast.show();
-    }
-
+    @SuppressLint("NonConstantResourceId")
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.aboutMeButton:
-                showAboutMe(view);
+                Intent intentAboutMe = new Intent(this, AboutMeActivity.class);
+                startActivity(intentAboutMe);
                 break;
             case R.id.clickyButton:
                 Intent intent_clicky = new Intent(this, ClickyActivity.class);
