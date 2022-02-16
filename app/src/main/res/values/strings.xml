@@ -17,4 +17,7 @@
     <string name="snackbar_msg_success">"Link added. "</string>
     <string name="snackbar_action_undo">Undo</string>
     <string name="snackbar_msg_deleted">Deleted Link.</string>
+    <string name="https">https</string>
+    <string name="http">http</string>
+    <string name="http_start_of_url">http://</string>
 </resources>
