@@ -120,21 +120,17 @@ public class LinkCollectorActivity extends AppCompatActivity {
     }
 
     private boolean isValidURL(@NonNull String urlString) {
-        if (TextUtils.isEmpty(urlString)) {
-            return false;
-        }
-
-        boolean isURL = Patterns.WEB_URL.matcher(urlString).matches();
-        if (!isURL) {
+        boolean isValidURL = Patterns.WEB_URL.matcher(urlString).matches();
+        if (!isValidURL) {
             if (URLUtil.isNetworkUrl(urlString)) {
                 try {
                     new URL(urlString).toURI();
-                    isURL = true;
+                    isValidURL = true;
                 } catch (Exception ignored) {
                 }
             }
         }
-        return isURL;
+        return isValidURL;
     }
 
     public void showAddLinkDialog(View view) {
