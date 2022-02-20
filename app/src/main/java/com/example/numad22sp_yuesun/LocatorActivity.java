@@ -5,15 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.Log;
+import android.provider.Settings;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import org.jetbrains.annotations.NotNull;
 
 public class LocatorActivity extends AppCompatActivity implements LocationListener{
@@ -30,8 +31,6 @@ public class LocatorActivity extends AppCompatActivity implements LocationListen
         latitudeTextView = findViewById(R.id.latitudeTextView);
         longitudeTextView = findViewById(R.id.longitudeTextView);
 
-//        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
-
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
@@ -44,10 +43,10 @@ public class LocatorActivity extends AppCompatActivity implements LocationListen
 
     @SuppressLint("MissingPermission")
     void updatedLocation() {
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, (LocationListener) this);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1500, 0, (LocationListener) this);
         Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         if (location == null) {
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, (LocationListener) this);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1500, 0, (LocationListener) this);
             location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         }
         if (location != null) {
@@ -85,6 +84,13 @@ public class LocatorActivity extends AppCompatActivity implements LocationListen
 
     @Override
     public void onProviderDisabled(@NonNull String provider) {
-
+        longitudeTextView.setText(R.string.longitude_provider_disabled);
+        latitudeTextView.setText(R.string.latitude_provider_disabled);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Location provider disabled. Please enable in settings.")
+                .setCancelable(false)
+                .setPositiveButton("Enable", (dialog, which) -> startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)))
+                .setNegativeButton("Dismiss", (dialog, which) -> dialog.cancel())
+                .show();
     }
 }
