@@ -20,4 +20,7 @@
     <string name="https">https</string>
     <string name="http">http</string>
     <string name="http_start_of_url">http://</string>
+    <string name="Latitude">Latitude: </string>
+    <string name="Longitude">Longitude: </string>
+    <string name="locator_button">Locator</string>
 </resources>
