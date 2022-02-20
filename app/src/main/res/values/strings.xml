@@ -9,8 +9,8 @@
     <string name="link_url">link_url</string>
     <string name="add_link">Add Link</string>
     <string name="dialog_title">Add Link</string>
-    <string name="bottom_cancel">cancel</string>
-    <string name="button_save">save</string>
+    <string name="bottom_cancel">Cancel</string>
+    <string name="button_save">Save</string>
     <string name="snackbar_msg_missing_input">Failed to save a link. Missing input - name and URL are required.</string>
     <string name="snackbar_action">Action</string>
     <string name="snackbar_msg_invalid_url">Failed to save the link: Invalid URL.</string>
@@ -20,4 +20,12 @@
     <string name="https">https</string>
     <string name="http">http</string>
     <string name="http_start_of_url">http://</string>
+    <string name="Latitude">Latitude: </string>
+    <string name="Longitude">Longitude: </string>
+    <string name="locator_button">Locator</string>
+    <string name="location_image_description">location_image_description</string>
+    <string name="longitude_permission_denied">Permission Denied</string>
+    <string name="latitude_permission_denied">Location Unavailable</string>
+    <string name="longitude_provider_disabled">Location provider disabled</string>
+    <string name="latitude_provider_disabled">Location Unavailable</string>
 </resources>

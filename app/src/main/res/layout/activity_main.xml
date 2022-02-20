@@ -15,52 +15,63 @@
         android:text="Hello World!"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         android:textColor="@color/dark_purple"
-        android:textSize="48sp"
+        android:textSize="42sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/clickyButton"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonGroup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.2" />
 
-    <Button
-        android:id="@+id/clickyButton"
-        android:layout_width="140dp"
-        android:layout_height="70dp"
-        android:width="160dp"
-        android:backgroundTint="@color/dark_orange"
-        android:onClick="onClick"
-        android:text="@string/clicky_clicky"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/linkCollectorButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/helloWorld" />
-
-    <Button
-        android:id="@+id/linkCollectorButton"
-        android:layout_width="140dp"
-        android:layout_height="70dp"
-        android:width="160dp"
-        android:backgroundTint="@color/dark_orange"
-        android:onClick="onClick"
-        android:text="@string/link_collector"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/aboutMeButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clickyButton" />
-
-    <Button
-        android:id="@+id/aboutMeButton"
-        android:layout_width="140dp"
-        android:layout_height="70dp"
-        android:backgroundTint="@color/dark_orange"
-        android:onClick="onClick"
-        android:text="@string/about_me_string"
-        android:textSize="16sp"
+    <LinearLayout
+        android:id="@+id/buttonGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linkCollectorButton" />
+        app:layout_constraintTop_toBottomOf="@+id/helloWorld">
 
+        <Button
+            android:id="@+id/clickyButton"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:textSize="12sp"
+            android:width="160dp"
+            android:backgroundTint="@color/dark_orange"
+            android:onClick="onClick"
+            android:text="@string/clicky_clicky"
+            app:layout_constraintTop_toBottomOf="@+id/helloWorld" />
+
+        <Button
+            android:id="@+id/linkCollectorButton"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:textSize="12sp"
+            android:width="160dp"
+            android:backgroundTint="@color/dark_orange"
+            android:onClick="onClick"
+            android:text="@string/link_collector" />
+
+        <Button
+            android:id="@+id/locatorButton"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:textSize="12sp"
+            android:backgroundTint="@color/dark_orange"
+            android:onClick="onClick"
+            android:text="@string/locator_button" />
+
+        <Button
+            android:id="@+id/aboutMeButton"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:textSize="12sp"
+            android:backgroundTint="@color/dark_orange"
+            android:onClick="onClick"
+            android:text="@string/about_me_string" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
