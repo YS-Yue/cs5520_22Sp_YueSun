@@ -23,4 +23,7 @@
     <string name="Latitude">Latitude: </string>
     <string name="Longitude">Longitude: </string>
     <string name="locator_button">Locator</string>
+    <string name="location_image_description">location_image_description</string>
+    <string name="longitude_permission_denied">Longitude Unavailable: Permission Denied</string>
+    <string name="latitude_permission_denied">Latitude Unavailable: Permission Denied</string>
 </resources>

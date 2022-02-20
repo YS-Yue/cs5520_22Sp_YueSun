@@ -3,7 +3,6 @@ package com.example.numad22sp_yuesun;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
@@ -16,8 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Arrays;
 
 public class LocatorActivity extends AppCompatActivity implements LocationListener{
     LocationManager locationManager;
@@ -33,8 +30,7 @@ public class LocatorActivity extends AppCompatActivity implements LocationListen
         latitudeTextView = findViewById(R.id.latitudeTextView);
         longitudeTextView = findViewById(R.id.longitudeTextView);
 
-        Log.d("Manifest.permission.ACCESS_FINE_LOCATION)", String.valueOf(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)));
-        latitudeTextView.setText(String.valueOf(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)));
+//        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -60,8 +56,8 @@ public class LocatorActivity extends AppCompatActivity implements LocationListen
     }
 
     private void renderUpdates(Location location) {
-        String latitude = "Latitude: " + String.valueOf(location.getLatitude());
-        String longitude = "Longitude: " + String.valueOf(location.getLongitude());
+        String latitude = "Latitude: " + location.getLatitude();
+        String longitude = "Longitude: " + location.getLongitude();
         longitudeTextView.setText(longitude);
         latitudeTextView.setText(latitude);
     }
@@ -70,16 +66,14 @@ public class LocatorActivity extends AppCompatActivity implements LocationListen
     @Override
     public void onRequestPermissionsResult(int requestCode, String @NotNull [] permissions,
                                            int @NotNull [] grantResults) {
-        Log.d("grantedResult", Arrays.toString(grantResults));
-        Log.d("requestCode", Integer.toString(requestCode));
         if (requestCode == LOCATOR_REQUEST_CODE) {
             if (grantResults.length > 0 &&
                     grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 updatedLocation();
             } else {
                 Toast.makeText(LocatorActivity.this, "Location permission denied. Update in settings.", Toast.LENGTH_SHORT).show();
-                longitudeTextView.setText("No permission");
-                latitudeTextView.setText("No permission");
+                longitudeTextView.setText(R.string.longitude_permission_denied);
+                latitudeTextView.setText(R.string.latitude_permission_denied);
             }
         }
     }

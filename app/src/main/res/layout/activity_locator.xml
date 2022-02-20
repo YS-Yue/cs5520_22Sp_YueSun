@@ -4,29 +4,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/light_orange"
     tools:context=".LocatorActivity">
+
+    <ImageView
+        android:id="@+id/imageViewLocation"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:contentDescription="@string/location_image_description"
+        android:tint="@color/dark_orange"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3"
+        app:srcCompat="@android:drawable/ic_dialog_map" />
 
     <TextView
         android:id="@+id/latitudeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Latitude"
+        android:textSize="18sp"
+        android:textColor="@color/dark_purple"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.349" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewLocation"
+        app:layout_constraintVertical_bias="0.1" />
 
     <TextView
         android:id="@+id/longitudeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Longitude"
+        android:textSize="18sp"
+        android:textColor="@color/dark_purple"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/latitudeTextView"
+        app:layout_constraintHorizontal_bias="0"
         app:layout_constraintTop_toBottomOf="@+id/latitudeTextView"
-        app:layout_constraintVertical_bias="0.08" />
+        app:layout_constraintVertical_bias="0.05"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
