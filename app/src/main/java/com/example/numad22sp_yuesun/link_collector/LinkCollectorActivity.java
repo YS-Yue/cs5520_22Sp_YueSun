@@ -26,7 +26,7 @@ import org.jetbrains.annotations.NotNull;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class LinkCollectorActivity extends AppCompatActivity {
+public class     LinkCollectorActivity extends AppCompatActivity {
     private RecyclerView linkRecyclerView;
     private LinkRecyclerViewAdapter viewAdapter;
     private final ArrayList<LinkItem> linkItemList = new ArrayList<>();;

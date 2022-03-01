@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.numad22sp_yuesun.R;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 
 public class LinkRecyclerViewAdapter extends RecyclerView.Adapter<LinkRecyclerViewHolder> {
@@ -24,7 +26,7 @@ public class LinkRecyclerViewAdapter extends RecyclerView.Adapter<LinkRecyclerVi
     }
 
     @Override
-    public LinkRecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public @NotNull LinkRecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.link_item_card, parent, false);
         return new LinkRecyclerViewHolder(view, this.linkItemClickListener);
     }

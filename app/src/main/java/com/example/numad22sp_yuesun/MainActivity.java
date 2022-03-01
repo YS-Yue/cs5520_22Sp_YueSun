@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.numad22sp_yuesun.at_your_service.AtYourServiceActivity;
 import com.example.numad22sp_yuesun.link_collector.LinkCollectorActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,6 +35,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.locatorButton:
                 Intent intentLocator = new Intent(this, LocatorActivity.class);
                 startActivity(intentLocator);
+                break;
+            case R.id.atYourServiceButton:
+                Intent intentAtYourService = new Intent(this, AtYourServiceActivity.class);
+                startActivity(intentAtYourService);
                 break;
         }
     }

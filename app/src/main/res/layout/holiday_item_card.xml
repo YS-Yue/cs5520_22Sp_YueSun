@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="3dp"
+    app:cardCornerRadius="5dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="3dp"
+        android:padding="2dp">
+
+        <TextView
+            android:id="@+id/holiday_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="8dp"
+            android:text="@string/holiday_date"
+            android:textSize="16sp"
+            android:textColor="@color/dark_purple"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/country_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="@string/country_code"
+            android:textColor="@color/purple_200"
+            android:textSize="14sp"
+            android:textStyle="bold|italic"
+            tools:ignore="RelativeOverlap"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"/>
+
+        <TextView
+            android:id="@+id/holiday_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/holiday_date"
+            android:text="@string/holiday_name"
+            android:textColor="@color/dark_orange"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="12dp"/>
+
+        <TextView
+            android:id="@+id/holiday_local_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/holiday_name"
+            android:text="@string/holiday_name"
+            android:textColor="@color/purple_200"
+            android:textSize="14sp"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="12dp"/>
+
+        <TextView
+            android:id="@+id/holiday_is_fix"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/holiday_local_name"
+            android:text="@string/is_fix"
+            android:textColor="@color/purple_200"
+            android:textSize="14sp"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="12dp"/>
+
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>
