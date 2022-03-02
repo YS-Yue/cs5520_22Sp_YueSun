@@ -4,21 +4,18 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import com.example.numad22sp_yuesun.R;
-
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -28,12 +25,12 @@ import java.util.Scanner;
 
 public class AtYourServiceActivity extends AppCompatActivity {
     private HolidayRecyclerViewAdapter viewAdapter;
-    private final ArrayList<HolidayItem> holidayItemsList = new ArrayList<>();
+    private ArrayList<HolidayItem> holidayItemsList = new ArrayList<>();
     private static final String KEY_OF_HOLIDAYS = "KEY_OF_HOLIDAYS";
     private static final String NUMBER_OF_HOLIDAYS = "NUMBER_OF_HOLIDAYS";
     private ProgressBar progressBar;
-    private final String countryCode = "CN";
-    private final String year = "2022";
+    private String countryCode = "CN";
+    private String year = "2022";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +92,11 @@ public class AtYourServiceActivity extends AppCompatActivity {
     }
 
     private void onClickButtonGetHoliday(View view) {
+        holidayItemsList.clear();
+        viewAdapter.notifyDataSetChanged();
         progressBar.setVisibility(View.VISIBLE);
+        EditText editCountryCode = findViewById(R.id.country_code_input);
+        countryCode = editCountryCode.getText().toString();
         runCallTread(view);
     }
 
@@ -116,7 +117,7 @@ public class AtYourServiceActivity extends AppCompatActivity {
                 }
             } catch (IOException e) {
                 Log.e("IOE Error", "IOE Error");
-                Toast.makeText(getApplicationContext(), "Failed to fetch data from Nager.Date API. ", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(AtYourServiceActivity.this, "Failed to fetch data from Nager.Date API. ", Toast.LENGTH_SHORT).show();
             } catch (JSONException e) {
                 Log.e("JSONExceptionError", "JSONExceptionError");
             } finally {
@@ -138,10 +139,12 @@ public class AtYourServiceActivity extends AppCompatActivity {
             final String response = convertStreamToString(inputStream);
             return convertToHolidayItems(response);
         } else if (conn.getResponseCode() == HttpURLConnection.HTTP_NOT_FOUND) {
-            Toast.makeText(getApplicationContext(), "CountryCode is unknown. ", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(AtYourServiceActivity.this, "CountryCode is unknown. ", Toast.LENGTH_SHORT).show();
+            Log.e("NOT FOUND: ", conn.getErrorStream().toString());
             return new ArrayList<>();
         } else {
-            Toast.makeText(getApplicationContext(), "Validation failure. ", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(AtYourServiceActivity.this, "Validation failure. ", Toast.LENGTH_SHORT).show();
+            Log.e("NOT Valid: ", conn.getErrorStream().toString());
             return new ArrayList<>();
         }
     }

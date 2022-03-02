@@ -31,7 +31,6 @@
             android:hint="@string/hint_country_code_cn"
             android:inputType="text"
             android:importantForAutofill="no" />
-
     </TableRow>
 
     <Button
