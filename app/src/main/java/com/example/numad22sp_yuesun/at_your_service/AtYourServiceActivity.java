@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.numad22sp_yuesun.R;
 
@@ -31,6 +32,8 @@ public class AtYourServiceActivity extends AppCompatActivity {
     private static final String KEY_OF_HOLIDAYS = "KEY_OF_HOLIDAYS";
     private static final String NUMBER_OF_HOLIDAYS = "NUMBER_OF_HOLIDAYS";
     private ProgressBar progressBar;
+    private final String countryCode = "CN";
+    private final String year = "2022";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,27 +113,35 @@ public class AtYourServiceActivity extends AppCompatActivity {
                     viewAdapter.notifyItemInserted(position+1);
                 }
             } catch (IOException e) {
-                Log.e("IOE Error", "!!!!!!");
+                Log.e("IOE Error", "IOE Error");
+                Toast.makeText(getApplicationContext(), "Failed to fetch data from Nager.Date API. ", Toast.LENGTH_SHORT).show();
             } catch (JSONException e) {
-                Log.e("JSONExceptionError", "!!!!!!");
+                Log.e("JSONExceptionError", "JSONExceptionError");
+            } finally {
+                progressBar.setVisibility(View.INVISIBLE);
             }
-            progressBar.setVisibility(View.INVISIBLE);
         }
     }
 
     private ArrayList<HolidayItem> queryFromAPI() throws IOException, JSONException {
-        URL url;
-        String urlString = "https://date.nager.at/api/v3/PublicHolidays/2022/cn";
-        url = new URL(urlString);
+        String urlString = "https://date.nager.at/api/v3/PublicHolidays/" + year + "/" + countryCode;
+        URL url = new URL(urlString);
         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
         conn.setRequestMethod("GET");
         conn.setDoInput(true);
         conn.connect();
 
-        InputStream inputStream = conn.getInputStream();
-        final String response = convertStreamToString(inputStream);
-
-        return convertToHolidayItems(response);
+        if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+            InputStream inputStream = conn.getInputStream();
+            final String response = convertStreamToString(inputStream);
+            return convertToHolidayItems(response);
+        } else if (conn.getResponseCode() == HttpURLConnection.HTTP_NOT_FOUND) {
+            Toast.makeText(getApplicationContext(), "CountryCode is unknown. ", Toast.LENGTH_SHORT).show();
+            return new ArrayList<>();
+        } else {
+            Toast.makeText(getApplicationContext(), "Validation failure. ", Toast.LENGTH_SHORT).show();
+            return new ArrayList<>();
+        }
     }
 
     @NotNull
