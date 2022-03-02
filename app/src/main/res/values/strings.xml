@@ -34,4 +34,6 @@
     <string name="country_code">Country Code</string>
     <string name="holiday_name">holiday_name</string>
     <string name="is_fix">Is Fix</string>
+    <string name="country_code_input_title">Country Code:</string>
+    <string name="hint_country_code_cn">e.g., CN, JP, FR</string>
 </resources>

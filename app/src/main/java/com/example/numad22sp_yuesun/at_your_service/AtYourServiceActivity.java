@@ -41,10 +41,7 @@ public class AtYourServiceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_at_your_service);
         init(savedInstanceState);
         Button buttonGetHoliday = findViewById(R.id.button_check_holidays);
-        buttonGetHoliday.setOnClickListener(view -> {
-            progressBar.setVisibility(View.VISIBLE);
-            runCallTread(view);
-        });
+        buttonGetHoliday.setOnClickListener(this::onClickButtonGetHoliday);
         progressBar = findViewById(R.id.progressBar);
     }
 
@@ -95,6 +92,11 @@ public class AtYourServiceActivity extends AppCompatActivity {
             outState.putString(KEY_OF_HOLIDAYS + i + "4", holidayItemsList.get(i).getCountryCode());
         }
         super.onSaveInstanceState(outState);
+    }
+
+    private void onClickButtonGetHoliday(View view) {
+        progressBar.setVisibility(View.VISIBLE);
+        runCallTread(view);
     }
 
     public void runCallTread(View view) {
