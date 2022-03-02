@@ -30,9 +30,11 @@ public class HolidayRecyclerViewAdapter extends RecyclerView.Adapter<HolidayRecy
     public void onBindViewHolder(@NonNull @NotNull HolidayRecyclerViewHolder holder, int position) {
         HolidayItem currentHoliday = holidayItems.get(position);
         holder.date.setText(currentHoliday.getDate());
-        holder.localName.setText(currentHoliday.getLocalName());
+        String localNameText = "Local Name: " + currentHoliday.getLocalName();
+        holder.localName.setText(localNameText);
         holder.name.setText(currentHoliday.getName());
-        holder.isFixed.setText(currentHoliday.getFixed().toString());
+        String isFixedText = currentHoliday.getFixed() ? "Is fixed date: Yes" : "Is fixed date: No";
+        holder.isFixed.setText(isFixedText);
         holder.countryCode.setText(currentHoliday.getCountryCode());
     }
 

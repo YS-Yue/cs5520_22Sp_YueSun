@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import com.example.numad22sp_yuesun.R;
 
@@ -24,13 +25,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static java.lang.Thread.sleep;
-
 public class AtYourServiceActivity extends AppCompatActivity {
     private HolidayRecyclerViewAdapter viewAdapter;
     private final ArrayList<HolidayItem> holidayItemsList = new ArrayList<>();
     private static final String KEY_OF_HOLIDAYS = "KEY_OF_HOLIDAYS";
     private static final String NUMBER_OF_HOLIDAYS = "NUMBER_OF_HOLIDAYS";
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +38,11 @@ public class AtYourServiceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_at_your_service);
         init(savedInstanceState);
         Button buttonGetHoliday = findViewById(R.id.button_check_holidays);
-        buttonGetHoliday.setOnClickListener(this::runCallTread);
+        buttonGetHoliday.setOnClickListener(view -> {
+            progressBar.setVisibility(View.VISIBLE);
+            runCallTread(view);
+        });
+        progressBar = findViewById(R.id.progressBar);
     }
 
     private void init(Bundle savedInstanceState) {
@@ -99,11 +103,6 @@ public class AtYourServiceActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                sleep(8000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            try {
                 ArrayList<HolidayItem> queryResults = queryFromAPI();
                 for (int i = 0; i < queryResults.size(); i++) {
                     holidayItemsList.add(queryResults.get(i));
@@ -115,6 +114,7 @@ public class AtYourServiceActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 Log.e("JSONExceptionError", "!!!!!!");
             }
+            progressBar.setVisibility(View.INVISIBLE);
         }
     }
 
