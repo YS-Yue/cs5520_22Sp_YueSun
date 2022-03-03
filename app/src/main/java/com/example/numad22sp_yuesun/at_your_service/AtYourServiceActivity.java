@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -12,10 +13,13 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import com.example.numad22sp_yuesun.R;
+import com.google.android.material.snackbar.Snackbar;
+
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -25,12 +29,13 @@ import java.util.Scanner;
 
 public class AtYourServiceActivity extends AppCompatActivity {
     private HolidayRecyclerViewAdapter viewAdapter;
-    private ArrayList<HolidayItem> holidayItemsList = new ArrayList<>();
+    private final ArrayList<HolidayItem> holidayItemsList = new ArrayList<>();
     private static final String KEY_OF_HOLIDAYS = "KEY_OF_HOLIDAYS";
     private static final String NUMBER_OF_HOLIDAYS = "NUMBER_OF_HOLIDAYS";
     private ProgressBar progressBar;
     private String countryCode = "CN";
     private String year = "2022";
+    private Handler uiHandler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,45 +113,59 @@ public class AtYourServiceActivity extends AppCompatActivity {
     class RunnableTread implements Runnable {
         @Override
         public void run() {
-            try {
-                ArrayList<HolidayItem> queryResults = queryFromAPI();
-                for (int i = 0; i < queryResults.size(); i++) {
-                    holidayItemsList.add(queryResults.get(i));
-                    int position = holidayItemsList.size() - 1;
-                    viewAdapter.notifyItemInserted(position+1);
-                }
-            } catch (IOException e) {
-                Log.e("IOE Error", "IOE Error");
-//                Toast.makeText(AtYourServiceActivity.this, "Failed to fetch data from Nager.Date API. ", Toast.LENGTH_SHORT).show();
-            } catch (JSONException e) {
-                Log.e("JSONExceptionError", "JSONExceptionError");
-            } finally {
-                progressBar.setVisibility(View.INVISIBLE);
+            ArrayList<HolidayItem> queryResults = queryFromAPI();
+            if (queryResults != null) {
+                holidayItemsList.addAll(0,queryResults);
+                uiHandler.post(() -> {
+                    viewAdapter.notifyItemRangeInserted(0, queryResults.size());
+                    progressBar.setVisibility(View.INVISIBLE);
+                });
             }
         }
     }
 
-    private ArrayList<HolidayItem> queryFromAPI() throws IOException, JSONException {
+    private ArrayList<HolidayItem> queryFromAPI() {
         String urlString = "https://date.nager.at/api/v3/PublicHolidays/" + year + "/" + countryCode;
-        URL url = new URL(urlString);
-        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-        conn.setRequestMethod("GET");
-        conn.setDoInput(true);
-        conn.connect();
+        try {
+            URL url = new URL(urlString);
+            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setDoInput(true);
+            conn.connect();
 
-        if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
-            InputStream inputStream = conn.getInputStream();
-            final String response = convertStreamToString(inputStream);
-            return convertToHolidayItems(response);
-        } else if (conn.getResponseCode() == HttpURLConnection.HTTP_NOT_FOUND) {
-//            Toast.makeText(AtYourServiceActivity.this, "CountryCode is unknown. ", Toast.LENGTH_SHORT).show();
-            Log.e("NOT FOUND: ", conn.getErrorStream().toString());
-            return new ArrayList<>();
-        } else {
-//            Toast.makeText(AtYourServiceActivity.this, "Validation failure. ", Toast.LENGTH_SHORT).show();
-            Log.e("NOT Valid: ", conn.getErrorStream().toString());
-            return new ArrayList<>();
+            if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                InputStream inputStream = conn.getInputStream();
+                final String response = convertStreamToString(inputStream);
+                return convertToHolidayItems(response);
+            } else if (conn.getResponseCode() == HttpURLConnection.HTTP_NOT_FOUND) {
+                notifyUserTheQueryError("CountryCode is unknown. ");
+                Log.e("NOT FOUND: ", conn.getErrorStream().toString());
+                return null;
+            } else if (conn.getResponseCode() == HttpURLConnection.HTTP_NO_CONTENT) {
+                notifyUserTheQueryError("No Content available for this country. ");
+                Log.e("NO Content: ", "No content available for this country");
+                return null;
+            } else {
+                notifyUserTheQueryError("Validation failure. ");
+                Log.e("NOT Valid: ", conn.getErrorStream().toString());
+                return null;
+            }
+        } catch (IOException e) {
+            Log.e("Error of queryFromAPI", e.getMessage());
+            notifyUserTheQueryError("Unable to fetch data from API. ");
+            return null;
+        } catch (JSONException e) {
+            Log.e("Error of read JSON response", e.getMessage());
+            notifyUserTheQueryError("Failed to read JSON response. ");
+            return null;
         }
+    }
+
+    private void notifyUserTheQueryError(String s) {
+        uiHandler.post(() -> {
+            Toast.makeText(AtYourServiceActivity.this, s, Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.INVISIBLE);
+        });
     }
 
     @NotNull
