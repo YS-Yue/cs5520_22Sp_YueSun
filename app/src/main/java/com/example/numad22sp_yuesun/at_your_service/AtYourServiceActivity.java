@@ -105,7 +105,7 @@ public class AtYourServiceActivity extends AppCompatActivity {
             String currentCountryCode = countryCodeArrayList.get(i);
             String currentCountryName = new Locale("",currentCountryCode).getDisplayCountry();
             countryNameList.add(currentCountryName);
-            countryNameToCode.put(currentCountryName, currentCountryCode);
+            countryNameToCode.put(currentCountryName.toLowerCase(), currentCountryCode);
         }
     }
 
@@ -138,7 +138,7 @@ public class AtYourServiceActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
         AutoCompleteTextView countrySelected = findViewById(R.id.country_selected);
         String countryName = countrySelected.getText().toString();
-        countryCode = countryNameToCode.get(countryName);
+        countryCode = countryNameToCode.get(countryName.toLowerCase().trim());
         runCallTread(view);
     }
 
