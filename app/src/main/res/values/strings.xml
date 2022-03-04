@@ -29,14 +29,14 @@
     <string name="longitude_provider_disabled">Location provider disabled</string>
     <string name="latitude_provider_disabled">Location Unavailable</string>
     <string name="at_your_service">At Your Service</string>
-    <string name="get_holidays">Get Holidays</string>
+    <string name="get_holidays">Show Holidays</string>
     <string name="holiday_date">Holiday Date</string>
     <string name="country_code">Country Code</string>
     <string name="holiday_name">holiday_name</string>
     <string name="is_fix">Is Fix</string>
     <string name="country_code_input_title">Country Code:</string>
     <string name="hint_country_code_cn">e.g., CN, JP, FR</string>
-    <string name="year">Select the target year</string>
+    <string name="year">Year</string>
     <string name="year_2022">2022</string>
     <string name="default_country_china">China</string>
     <string name="hint_country">Country</string>
