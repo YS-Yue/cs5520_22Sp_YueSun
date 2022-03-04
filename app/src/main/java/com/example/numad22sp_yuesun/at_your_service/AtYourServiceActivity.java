@@ -10,22 +10,22 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import com.example.numad22sp_yuesun.R;
-import com.google.android.material.snackbar.Snackbar;
-
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.Locale;
 
 public class AtYourServiceActivity extends AppCompatActivity {
     private HolidayRecyclerViewAdapter viewAdapter;
@@ -35,13 +35,20 @@ public class AtYourServiceActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private String countryCode = "CN";
     private String year = "2022";
-    private Handler uiHandler = new Handler();
+    private final Handler uiHandler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_at_your_service);
         init(savedInstanceState);
+        NumberPicker yearPicker = findViewById(R.id.year_number_picker);
+
+        yearPicker.setMaxValue(2040);
+        yearPicker.setMinValue(2000);
+        yearPicker.setValue(2022);
+        yearPicker.setWrapSelectorWheel(false);
+        yearPicker.setOnValueChangedListener((numberPicker, i, i1) -> year = String.valueOf(i1));
         Button buttonGetHoliday = findViewById(R.id.button_check_holidays);
         buttonGetHoliday.setOnClickListener(this::onClickButtonGetHoliday);
         progressBar = findViewById(R.id.progressBar);
@@ -102,6 +109,17 @@ public class AtYourServiceActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
         EditText editCountryCode = findViewById(R.id.country_code_input);
         countryCode = editCountryCode.getText().toString();
+
+        String[] countriesList = Locale.getISOCountries();
+        Log.d("List of CountryCode",Arrays.toString(countriesList));
+
+        ArrayList<String> countryCodeArrayList = new ArrayList<>(Arrays.asList(countriesList));
+        ArrayList<String> countryNameList = new ArrayList<>();
+        for (int i = 0; i < countryCodeArrayList.size(); i ++) {
+            countryNameList.add(new Locale("",countryCodeArrayList.get(i)).getDisplayCountry());
+        }
+        Log.d("Country Names:  ", countryNameList.toString());
+
         runCallTread(view);
     }
 
