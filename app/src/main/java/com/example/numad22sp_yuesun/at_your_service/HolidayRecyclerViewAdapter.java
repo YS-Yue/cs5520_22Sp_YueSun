@@ -35,7 +35,11 @@ public class HolidayRecyclerViewAdapter extends RecyclerView.Adapter<HolidayRecy
         holder.name.setText(currentHoliday.getName());
         String isFixedText = currentHoliday.getFixed() ? "Is fixed date: Yes" : "Is fixed date: No";
         holder.isFixed.setText(isFixedText);
-        holder.countryCode.setText(currentHoliday.getCountryCode());
+        String countryCode = currentHoliday.getCountryCode();
+        int firstLetter = Character.codePointAt(countryCode, 0) - 0x41 + 0x1F1E6;
+        int secondLetter = Character.codePointAt(countryCode, 1) - 0x41 + 0x1F1E6;
+        String countryFlag = new String(Character.toChars(firstLetter)) + new String(Character.toChars(secondLetter));
+        holder.countryCode.setText(countryFlag);
     }
 
     @Override
