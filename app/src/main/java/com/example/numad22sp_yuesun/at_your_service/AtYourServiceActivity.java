@@ -8,12 +8,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import com.example.numad22sp_yuesun.R;
+import com.google.android.material.textfield.TextInputLayout;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,35 +26,51 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Locale;
 
 public class AtYourServiceActivity extends AppCompatActivity {
-    private HolidayRecyclerViewAdapter viewAdapter;
-    private final ArrayList<HolidayItem> holidayItemsList = new ArrayList<>();
-    private static final String KEY_OF_HOLIDAYS = "KEY_OF_HOLIDAYS";
-    private static final String NUMBER_OF_HOLIDAYS = "NUMBER_OF_HOLIDAYS";
-    private ProgressBar progressBar;
-    private String countryCode = "CN";
-    private String year = "2022";
-    private final Handler uiHandler = new Handler();
+    HolidayRecyclerViewAdapter viewAdapter;
+    final ArrayList<HolidayItem> holidayItemsList = new ArrayList<>();
+    static final String KEY_OF_HOLIDAYS = "KEY_OF_HOLIDAYS";
+    static final String NUMBER_OF_HOLIDAYS = "NUMBER_OF_HOLIDAYS";
+    ProgressBar progressBar;
+    String countryCode = "CN";
+    String year = "2022";
+    final Handler uiHandler = new Handler();
+    TextInputLayout textInputLayout;
+    AutoCompleteTextView countryPicker;
+    ArrayAdapter<String> arrayAdapterCountry;
+    ArrayList<String> countryNameList = new ArrayList<>();
+    HashMap<String, String> countryNameToCode = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_at_your_service);
         init(savedInstanceState);
-        NumberPicker yearPicker = findViewById(R.id.year_number_picker);
 
+        NumberPicker yearPicker = findViewById(R.id.year_number_picker);
         yearPicker.setMaxValue(2040);
         yearPicker.setMinValue(2000);
         yearPicker.setValue(2022);
         yearPicker.setWrapSelectorWheel(false);
         yearPicker.setOnValueChangedListener((numberPicker, i, i1) -> year = String.valueOf(i1));
+
         Button buttonGetHoliday = findViewById(R.id.button_check_holidays);
         buttonGetHoliday.setOnClickListener(this::onClickButtonGetHoliday);
+
         progressBar = findViewById(R.id.progressBar);
+
+        populateCountryData();
+        textInputLayout = findViewById(R.id.text_input_layout_country);
+        countryPicker = findViewById(R.id.country_selected);
+        arrayAdapterCountry = new ArrayAdapter<>(getApplicationContext(), R.layout.countries_textview,countryNameList);
+        countryPicker.setAdapter(arrayAdapterCountry);
+        countryPicker.setThreshold(1);
     }
+
 
     private void init(Bundle savedInstanceState) {
         initialHolidayItemsData(savedInstanceState);
@@ -77,6 +95,17 @@ public class AtYourServiceActivity extends AppCompatActivity {
                     }
                 }
             }
+        }
+    }
+
+    private void populateCountryData() {
+        String[] countriesList = Locale.getISOCountries();
+        ArrayList<String> countryCodeArrayList = new ArrayList<>(Arrays.asList(countriesList));
+        for (int i = 0; i < countryCodeArrayList.size(); i ++) {
+            String currentCountryCode = countryCodeArrayList.get(i);
+            String currentCountryName = new Locale("",currentCountryCode).getDisplayCountry();
+            countryNameList.add(currentCountryName);
+            countryNameToCode.put(currentCountryName, currentCountryCode);
         }
     }
 
@@ -107,19 +136,9 @@ public class AtYourServiceActivity extends AppCompatActivity {
         holidayItemsList.clear();
         viewAdapter.notifyDataSetChanged();
         progressBar.setVisibility(View.VISIBLE);
-        EditText editCountryCode = findViewById(R.id.country_code_input);
-        countryCode = editCountryCode.getText().toString();
-
-        String[] countriesList = Locale.getISOCountries();
-        Log.d("List of CountryCode",Arrays.toString(countriesList));
-
-        ArrayList<String> countryCodeArrayList = new ArrayList<>(Arrays.asList(countriesList));
-        ArrayList<String> countryNameList = new ArrayList<>();
-        for (int i = 0; i < countryCodeArrayList.size(); i ++) {
-            countryNameList.add(new Locale("",countryCodeArrayList.get(i)).getDisplayCountry());
-        }
-        Log.d("Country Names:  ", countryNameList.toString());
-
+        AutoCompleteTextView countrySelected = findViewById(R.id.country_selected);
+        String countryName = countrySelected.getText().toString();
+        countryCode = countryNameToCode.get(countryName);
         runCallTread(view);
     }
 

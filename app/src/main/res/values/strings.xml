@@ -36,6 +36,8 @@
     <string name="is_fix">Is Fix</string>
     <string name="country_code_input_title">Country Code:</string>
     <string name="hint_country_code_cn">e.g., CN, JP, FR</string>
-    <string name="year">Year</string>
+    <string name="year">Select the target year</string>
     <string name="year_2022">2022</string>
+    <string name="default_country_china">China</string>
+    <string name="hint_country">Country</string>
 </resources>

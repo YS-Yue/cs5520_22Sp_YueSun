@@ -4,10 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TableRow
-        android:id="@+id/tableRow"
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/text_input_layout_country"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="5dp"
@@ -17,33 +18,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        android:background="@color/dark_orange">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="1dp"
-            android:layout_weight="1"
-            android:background="@color/warm_white"
+        app:startIconDrawable="@drawable/ic_country"
+        >
+        <AutoCompleteTextView
+            android:id="@+id/country_selected"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:gravity="center"
-            android:text="@string/country_code_input_title"
+            android:hint="@string/hint_country"
             android:textColor="@color/dark_purple"
             android:textSize="16sp"
             android:textStyle="bold" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/country_code_input"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:hint="@string/hint_country_code_cn"
-            android:importantForAutofill="no"
-            android:inputType="text"
-            android:textSize="16sp"
-            android:layout_margin="1dp"
-            android:background="@color/warm_white"/>
-    </TableRow>
     <TableRow
         android:id="@+id/tableRow_year"
         android:layout_width="match_parent"
@@ -54,15 +41,13 @@
         android:layout_marginBottom="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tableRow"
-        android:background="@color/dark_orange">
+        app:layout_constraintTop_toBottomOf="@+id/text_input_layout_country">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="1dp"
             android:layout_weight="1"
-            android:background="@color/warm_white"
             android:gravity="center"
             android:text="@string/year"
             android:textColor="@color/dark_purple"
@@ -70,12 +55,12 @@
             android:textStyle="bold" />
 
         <NumberPicker
+
             android:id="@+id/year_number_picker"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1.5"
-            android:layout_margin="1dp"
-            android:background="@color/warm_white" />
+            android:layout_weight="1"
+            android:layout_margin="1dp" />
 
     </TableRow>
     <Button
@@ -97,7 +82,6 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/button_check_holidays" />
 
