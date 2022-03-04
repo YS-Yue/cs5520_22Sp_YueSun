@@ -26,7 +26,7 @@ import org.jetbrains.annotations.NotNull;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class LinkCollectorActivity extends AppCompatActivity {
+public class     LinkCollectorActivity extends AppCompatActivity {
     private RecyclerView linkRecyclerView;
     private LinkRecyclerViewAdapter viewAdapter;
     private final ArrayList<LinkItem> linkItemList = new ArrayList<>();;
@@ -39,8 +39,7 @@ public class LinkCollectorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_link_collector);
         init(savedInstanceState);
         FloatingActionButton addLinkButton = findViewById(R.id.addLinkButton);
-        addLinkButton.setOnClickListener(view -> {
-            showAddLinkDialog(view);});
+        addLinkButton.setOnClickListener(this::showAddLinkDialog);
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
